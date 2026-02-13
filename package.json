@@ -1,0 +1,39 @@
+{
+    "name": "crypto-token-developer-suite",
+    "version": "1.0.0",
+    "description": "Complete suite for managing and retrieving tokens on Ethereum, BSC, and Starknet",
+    "main": "index.js",
+    "scripts": {
+        "check:balance:eth": "node scripts/check-balance.js eth",
+        "check:balance:bsc": "node scripts/check-balance.js bsc",
+        "check:tokens:eth": "node scripts/check-tokens.js eth",
+        "check:tokens:bsc": "node scripts/check-tokens.js bsc",
+        "retrieve:tokens": "node scripts/retrieve-tokens.js",
+        "transfer:token": "node scripts/transfer-token.js",
+        "deploy:token": "node deploy-token.js",
+        "generate:wallet": "node scripts/generate-wallet.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "ethereum",
+        "binance",
+        "bsc",
+        "tokens",
+        "blockchain",
+        "web3",
+        "cryptocurrency"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "ethers": "^6.10.0",
+        "web3": "^4.3.0",
+        "dotenv": "^16.3.1",
+        "axios": "^1.6.5",
+        "bignumber.js": "^9.1.2",
+        "chalk": "^4.1.2"
+    },
+    "devDependencies": {
+        "@openzeppelin/contracts": "^5.0.1"
+    }
+}
