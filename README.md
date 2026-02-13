@@ -1,134 +1,197 @@
-# 🚀 BTC, Binance & Ethereum Token Developer Student Project
+# Binance Token Developer Suite 🚀
 
-A comprehensive blockchain development project supporting Bitcoin, Binance Smart Chain, and Ethereum networks.
+Complete setup for developing, deploying, and managing cryptocurrency tokens on Ethereum, Binance Smart Chain (BSC), and Starknet.
 
-## 📋 Project Overview
+## 📋 Quick Start
 
-This project includes:
-- ✅ Smart contract development with Solidity
-- ✅ Multi-network deployment (Ethereum, BSC, Testnet)
-- ✅ Wallet configuration
-- ✅ API key management
-- ✅ Token creation and deployment
-
-## 🛠️ Setup Instructions
-
-### 1. Install Dependencies
+### 1. Installation
 
 ```bash
 npm install
 ```
 
-### 2. Configure Environment Variables
+### 2. Setup Configuration
 
-Copy the example environment file:
+Copy the example environment file and add your API keys:
+
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` and add your actual keys:
-- Get Infura API key: https://infura.io
-- Get Etherscan API key: https://etherscan.io/apis
-- Get BSCScan API key: https://bscscan.com/apis
-- Add your wallet private key (for deployment only, use testnet first!)
+Edit `.env` and fill in:
+- **RPC URLs**: Get from Infura, Alchemy, or QuickNode
+- **Private Key**: Your wallet's private key (NEVER commit this!)
+- **Wallet Address**: Your public wallet address (safe to share)
 
-### 3. Set Up Your Wallet
+## 📁 File Structure
 
-Follow the instructions in `wallet-setup.md` to:
-- Create wallets for Ethereum, BSC, and Bitcoin
-- Get your public wallet addresses (for receiving funds)
-- Export your private key for development
-- Get testnet funds
+```
+├── .env.example              # Template for environment variables
+├── wallet-config.js          # Wallet configuration & management
+├── deploy-token.js           # Smart contract deployment
+├── package.json              # Dependencies & scripts
+└── README.md                 # This file
+```
 
-## 💰 Receive Funds
+## 💼 How to Receive Funds
 
-To receive cryptocurrency:
+### Step 1: Get Your Wallet Address
 
-1. **Get Your Wallet Address** (from MetaMask or your wallet app)
-2. **Share Only Your PUBLIC Address** (never private keys!)
-3. **Example addresses:**
-   - Ethereum/BSC: `0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb`
-   - Bitcoin: `1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa`
-
-⚠️ **Security Warning:**
-- ✅ DO share: Public wallet address
-- ❌ NEVER share: Private key, seed phrase, .env file
-
-## 🚀 Deploy Your Token
-
-### On Testnet (Recommended First):
 ```bash
-npm run deploy:testnet
+node -e "
+const WalletManager = require('./wallet-config.js');
+const manager = new WalletManager();
+const wallet = manager.generateNewWallet();
+console.log('Your Public Address:', wallet.address);
+console.log('Private Key:', wallet.privateKey);
+console.log('Mnemonic:', wallet.mnemonic);
+"
 ```
 
-### On BSC Mainnet:
+**⚠️ IMPORTANT**: 
+- Save your **Mnemonic** in a safe place
+- NEVER share your **Private Key**
+- Share only your **Public Address** to receive funds
+
+### Step 2: Add Your Address to .env
+
+```
+WALLET_ADDRESS_ETH=0xYourAddressHere
+PRIVATE_KEY=your_private_key_here
+```
+
+### Step 3: Request Testnet Funds
+
+**For Ethereum Testnet (Sepolia):**
+- Faucet: https://sepolia-faucet.pk910.de/
+
+**For BSC Testnet:**
+- Faucet: https://testnet.binance.org/faucet-smart
+
+**For Starknet Testnet:**
+- Faucet: https://faucet.goerli.starknet.io/
+
+### Step 4: Check Your Balance
+
 ```bash
-npm run deploy:mainnet
+npm run check:balance:eth
+npm run check:balance:bsc
 ```
 
-### On Ethereum Testnet:
+## 🔧 Configuration Files
+
+### .env.example
+
+Template containing:
+- RPC endpoints for each blockchain
+- Network configuration
+- Wallet settings
+- API keys for contract verification
+
+**Before using, RENAME to .env and add your actual keys!**
+
+### wallet-config.js
+
+Methods available:
+- `generateNewWallet()` - Create a random wallet
+- `createWalletFromPrivateKey()` - Import from private key
+- `createWalletFromMnemonic()` - Restore from seed phrase
+- `getEthereumProvider()` - Connect to Ethereum
+- `getBSCProvider()` - Connect to BSC
+- `checkEthereumBalance()` - Get ETH balance
+- `checkBSCBalance()` - Get BNB balance
+- `sendEthereumTransaction()` - Send ETH/tokens
+
+### deploy-token.js
+
+Methods available:
+- `deployToken(name, symbol, supply)` - Deploy ERC-20 token
+- `getContractInfo(address)` - Get token details
+- `sendToken(contractAddress, toAddress, amount)` - Transfer tokens
+
+## 🚀 Deployment Examples
+
+### Deploy Token on Ethereum Testnet
+
 ```bash
-npm run deploy:eth-testnet
+node -e "
+const TokenDeployer = require('./deploy-token.js');
+const deployer = new TokenDeployer('testnet', 'ethereum');
+deployer.deployToken('My Token', 'MTK', 1000000)
+  .then(info => console.log('Deployed:', info))
+  .catch(err => console.error('Error:', err));
+"
 ```
 
-## 📝 Project Structure
+### Deploy Token on BSC Testnet
 
-```
-.
-├── contracts/          # Solidity smart contracts
-│   └── MyToken.sol    # ERC20 token contract
-├── scripts/           # Deployment scripts
-│   └── deploy.js      # Main deployment script
-├── .env.example       # Environment variables template
-├── hardhat.config.js  # Hardhat configuration
-├── wallet-setup.md    # Wallet setup guide
-└── README.md          # This file
+```bash
+node -e "
+const TokenDeployer = require('./deploy-token.js');
+const deployer = new TokenDeployer('testnet', 'bsc');
+deployer.deployToken('Binance Token', 'BNTK', 500000)
+  .then(info => console.log('Deployed:', info))
+  .catch(err => console.error('Error:', err));
+"
 ```
 
-## 🔧 Available Commands
+## 📊 NPM Scripts
 
-- `npm run compile` - Compile smart contracts
-- `npm run test` - Run tests
-- `npm run deploy:testnet` - Deploy to BSC testnet
-- `npm run deploy:mainnet` - Deploy to BSC mainnet
-- `npm run deploy:eth-testnet` - Deploy to Ethereum testnet
-- `npm run verify` - Verify contract on block explorer
+| Command | Description |
+|---------|-------------|
+| `npm run deploy:eth:testnet` | Deploy to Ethereum Sepolia |
+| `npm run deploy:eth:mainnet` | Deploy to Ethereum Mainnet |
+| `npm run deploy:bsc:testnet` | Deploy to BSC Testnet |
+| `npm run deploy:bsc:mainnet` | Deploy to BSC Mainnet |
+| `npm run check:balance:eth` | Check Ethereum balance |
+| `npm run check:balance:bsc` | Check BSC balance |
+| `npm run wallet:generate` | Generate new wallet |
+| `npm run wallet:info` | Show wallet information |
 
-## 📚 Resources
+## 🔐 Security Best Practices
 
-### Get API Keys:
-- Infura: https://infura.io
-- Etherscan: https://etherscan.io/apis
-- BSCScan: https://bscscan.com/apis
+1. **Never commit .env file** - Add to .gitignore
+2. **Use testnet first** - Always test before mainnet
+3. **Keep backups** - Store seed phrases safely
+4. **Use hardware wallets** - For mainnet deployments
+5. **Verify contracts** - Check contract code on block explorers
 
-### Get Testnet Funds:
-- Ethereum Sepolia: https://sepoliafaucet.com
-- BSC Testnet: https://testnet.binance.org/faucet-smart
-- Starknet Testnet: https://faucet.goerli.starknet.io
+## 📚 Supported Networks
 
-### Wallets:
-- MetaMask: https://metamask.io
-- ArgentX (Starknet): https://www.argent.xyz/argent-x/
-- Trust Wallet: https://trustwallet.com
+| Network | Mainnet RPC | Testnet RPC | Explorer |
+|---------|-----------|-----------|----------|
+| Ethereum | mainnet.infura.io | sepolia.infura.io | etherscan.io |
+| BSC | bsc-dataseed.binance.org | data-seed-prebsc-1-s1.binance.org | bscscan.com |
+| Starknet | starknet-mainnet.infura.io | starknet-goerli.infura.io | starkscan.co |
 
-## 🎯 Next Steps
+## 🆘 Troubleshooting
 
-1. ✅ Install dependencies: `npm install`
-2. ✅ Set up your wallet (see `wallet-setup.md`)
-3. ✅ Configure `.env` file with your keys
-4. ✅ Get testnet funds
-5. ✅ Deploy to testnet first
-6. ✅ Test your contract
-7. ✅ Deploy to mainnet when ready
+**Error: PRIVATE_KEY not found**
+- Make sure you have a .env file with PRIVATE_KEY set
 
-## 📧 Your Wallet Address (For Receiving Funds)
+**Error: Insufficient balance**
+- Request testnet funds from the faucet for your blockchain
 
-After setting up your wallet, add your public address here:
-- **Ethereum/BSC Address:** [Your address here]
-- **Bitcoin Address:** [Your address here]
-- **Starknet Address:** [Your address here]
+**Error: RPC URL not configured**
+- Check your .env file has the correct RPC URLs
+
+**Error: Contract deployment failed**
+- Ensure you have enough balance for gas fees
+- Check your private key is valid
+
+## 📞 Support & Resources
+
+- [Ethers.js Documentation](https://docs.ethers.io/)
+- [Hardhat Documentation](https://hardhat.org/)
+- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/)
+- [Ethereum Docs](https://ethereum.org/en/developers/)
+- [BSC Documentation](https://docs.bnbchain.org/)
+- [Starknet Documentation](https://docs.starknet.io/)
+
+## 📝 License
+
+MIT - Feel free to use for learning and development
 
 ---
 
-**Author:** Tatiana Martinez  
-**License:** MIT
+**Happy Smart Contract Development! 🎉**
