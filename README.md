@@ -10,16 +10,36 @@ Complete setup for developing, deploying, and managing cryptocurrency tokens on 
 npm install
 ```
 
-### 2. Setup Configuration
+### 2. Setup API Keys
 
-Copy the example environment file and add your API keys:
+**Need API keys for Starknet and Ethereum?** We've got you covered! 🔑
+
+#### Option A: Automated Setup (Recommended)
+
+Run the interactive setup wizard:
+
+```bash
+npm run setup
+```
+
+#### Option B: Manual Setup
+
+1. Get your Infura API key from https://infura.io (free)
+2. Copy the environment template:
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` and fill in:
-- **RPC URLs**: Get from Infura, Alchemy, or QuickNode
+3. Edit `.env` and add your API keys
+
+**📚 Detailed API Key Guides:**
+- **[🔍 FIND_API_KEYS.md](./FIND_API_KEYS.md)** - Quick reference for finding your API keys
+- **[📖 API_KEY_GUIDE.md](./API_KEY_GUIDE.md)** - Complete guide for obtaining and configuring API keys
+- **[⚙️ SETUP_GUIDE.md](./SETUP_GUIDE.md)** - Full setup instructions
+
+What you need:
+- **RPC URLs**: Get from Infura, Alchemy, or QuickNode  
 - **Private Key**: Your wallet's private key (NEVER commit this!)
 - **Wallet Address**: Your public wallet address (safe to share)
 
@@ -27,6 +47,10 @@ Edit `.env` and fill in:
 
 ```
 ├── .env.example              # Template for environment variables
+├── FIND_API_KEYS.md          # Quick guide to find your API keys
+├── API_KEY_GUIDE.md          # Complete API key setup guide
+├── SETUP_GUIDE.md            # Detailed setup instructions
+├── setup-api-keys.js         # Interactive API key configuration
 ├── wallet-config.js          # Wallet configuration & management
 ├── deploy-token.js           # Smart contract deployment
 ├── package.json              # Dependencies & scripts
@@ -109,6 +133,38 @@ Methods available:
 - `getContractInfo(address)` - Get token details
 - `sendToken(contractAddress, toAddress, amount)` - Transfer tokens
 
+## 🔑 API Key Setup
+
+### Quick Setup
+
+Looking for your API keys? Run this:
+
+```bash
+npm run setup
+```
+
+This interactive wizard will help you:
+- Get your Infura API key (for Ethereum & Starknet)
+- Configure Etherscan API key (optional)
+- Set up BSCScan API key (optional)
+- Choose your default network (testnet/mainnet)
+
+### Where to Get API Keys
+
+| Service | Purpose | Link | Free Tier |
+|---------|---------|------|-----------|
+| **Infura** | Ethereum & Starknet RPC | https://infura.io | 100k req/day |
+| **Etherscan** | Contract verification | https://etherscan.io/apis | 100k calls/day |
+| **BSCScan** | BSC verification | https://bscscan.com/apis | 100k calls/day |
+
+### Need Help?
+
+- 🔍 **[Quick Reference](./FIND_API_KEYS.md)** - Where to find your API keys
+- 📖 **[Complete Guide](./API_KEY_GUIDE.md)** - Detailed API key setup instructions
+- ⚙️ **[Setup Guide](./SETUP_GUIDE.md)** - Full project setup
+
+---
+
 ## 🚀 Deployment Examples
 
 ### Deploy Token on Ethereum Testnet
@@ -139,6 +195,8 @@ deployer.deployToken('Binance Token', 'BNTK', 500000)
 
 | Command | Description |
 |---------|-------------|
+| `npm run setup` | Interactive API key setup wizard |
+| `npm run setup:api-keys` | Same as setup (alternative command) |
 | `npm run deploy:eth:testnet` | Deploy to Ethereum Sepolia |
 | `npm run deploy:eth:mainnet` | Deploy to Ethereum Mainnet |
 | `npm run deploy:bsc:testnet` | Deploy to BSC Testnet |
