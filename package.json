@@ -4,6 +4,8 @@
     "description": "Complete suite for managing and retrieving tokens on Ethereum, BSC, and Starknet",
     "main": "index.js",
     "scripts": {
+        "setup": "node setup-api-keys.js",
+        "setup:api-keys": "node setup-api-keys.js",
         "check:balance:eth": "node scripts/check-balance.js eth",
         "check:balance:bsc": "node scripts/check-balance.js bsc",
         "check:tokens:eth": "node scripts/check-tokens.js eth",

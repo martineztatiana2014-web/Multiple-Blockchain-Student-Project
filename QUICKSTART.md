@@ -6,7 +6,29 @@
 npm install
 ```
 
-## Step 2: Setup Your Wallet (2 minutes)
+## Step 2: Setup API Keys & Wallet (2 minutes)
+
+### First: Get Your API Keys
+
+**🔑 Need API keys for Starknet and Ethereum?**
+
+Run the automated setup:
+
+```bash
+npm run setup
+```
+
+This will help you:
+- Get your Infura API key (works for both Ethereum & Starknet!)
+- Configure optional block explorer keys
+- Set up your environment
+
+**📚 Or read the guides:**
+- [START_HERE.md](./START_HERE.md) - Quick overview
+- [FIND_API_KEYS.md](./FIND_API_KEYS.md) - Where to get API keys
+- [API_KEY_GUIDE.md](./API_KEY_GUIDE.md) - Complete guide
+
+### Then: Setup Your Wallet
 
 ### Option A: Create New Wallet
 
@@ -92,6 +114,7 @@ npm run transfer:token -- eth 0xTokenContract 0xRecipient 100
 ## 📝 Checklist
 
 - [ ] Dependencies installed (`npm install`)
+- [ ] API keys configured (`npm run setup`)
 - [ ] Wallet created or imported
 - [ ] Private key added to `.env`
 - [ ] Testnet funds received
@@ -105,6 +128,14 @@ npm run transfer:token -- eth 0xTokenContract 0xRecipient 100
 ### "Please set PRIVATE_KEY in .env file"
 
 👉 Run `npm run generate:wallet` or add existing key to `.env`
+
+### "API Key not configured"
+
+👉 Run `npm run setup` to configure your API keys
+
+### "Need Infura API key"
+
+👉 See [FIND_API_KEYS.md](./FIND_API_KEYS.md) for step-by-step guide
 
 ### "Balance is 0"
 
